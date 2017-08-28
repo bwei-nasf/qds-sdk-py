@@ -225,7 +225,9 @@ class Command(Resource):
                 fp.write(r['results'].encode('utf8'))
             else:
                 import io
-                if isinstance(fp, io.TextIOBase):
+                if fp == 'sys.stdout':
+                    fp.write(r['results'].encode('utf8'))                    
+                elif isinstance(fp, io.TextIOBase):
                     fp.buffer.write(r['results'].encode('utf8'))
                 elif isinstance(fp, io.BufferedIOBase) or isinstance(fp, io.RawIOBase):
                     fp.write(r['results'].encode('utf8'))
